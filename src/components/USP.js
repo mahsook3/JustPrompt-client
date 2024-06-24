@@ -1,5 +1,5 @@
 import React from 'react'
-import usp from '../assets/usp.svg'
+import usp from '../assets/stepper.svg'
 
 export default function USP() {
     const data = [
