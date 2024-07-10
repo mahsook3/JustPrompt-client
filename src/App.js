@@ -8,6 +8,10 @@ import MovieContainer from "./pages/MovieContainer.page";
 import PublicPlaylist from "./pages/PublicPlaylist.page";
 import Error from "./pages/Error.page";
 import LandingPage from "./pages/LandingPage";
+import Test from "./pages/Test";
+import DashBoard from "./pages/DashBoard";
+import Preview from "./pages/Preview"; 
+import Builder from "./pages/Builder";
 
 function App() {
   return (
@@ -18,11 +22,15 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/publicplaylist/:mailid" element={<PublicPlaylist />} />
-          <Route path="*" element={<Error />} />
+          <Route path="/dashboard" element={<DashBoard />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="/builder" element={<Builder />} />
+          <Route path="/preview" element={<Preview />} /> {/* Add Preview route */}
           <Route element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/movie/:imdbID" element={<MovieContainer />} />
           </Route>
+          <Route path="*" element={<Error />} />
         </Routes>
       </UserProvider>
     </BrowserRouter>
