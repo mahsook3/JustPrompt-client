@@ -2,16 +2,21 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
-function Preview() {
+const Preview = () => {
   const location = useLocation();
-  const { code } = location.state || { code: '' };
+  const { finalCode, finalCss } = location.state || {};
+
+  console.log("Preview component loaded with:", { finalCode, finalCss });
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold mb-4">Preview</h1>
-      <div dangerouslySetInnerHTML={{ __html: code }} />
+      <h2 className="text-2xl font-bold mb-4">Preview</h2>
+      <div className="text-white p-4 rounded-lg">
+        {finalCss && <style dangerouslySetInnerHTML={{ __html: finalCss }} />}
+        <div dangerouslySetInnerHTML={{ __html: finalCode }} />
+      </div>
     </div>
   );
-}
+};
 
 export default Preview;

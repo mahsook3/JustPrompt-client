@@ -1,23 +1,23 @@
+//Builder/ComponentResult.js
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useDrag } from 'react-dnd';
+import componentsData from '../components.json';
 
 const ComponentResult = ({ query, setDroppedComponents }) => {
   const [components, setComponents] = useState([]);
   const [error, setError] = useState(null); // State for error handling
 
   useEffect(() => {
-    const fetchComponents = async () => {
+    const fetchComponents = () => {
       try {
-        const response = await axios.get(
-          `https://tailwindflex.com/api/mahsook-tech/components/search?query=${query}`,
-          {
-            headers: {
-              'X-API-KEY': '434Klvspze2sfsd',
-            },
-          }
-        );
-        setComponents(response.data.data || []);
+        const filteredComponents = componentsData.filter((component) => {
+          const titleMatch = component.title.toLowerCase().includes(query.toLowerCase());
+          const tagMatch = component.tags.some((tag) =>
+            tag.name.toLowerCase().includes(query.toLowerCase())
+          );
+          return titleMatch || tagMatch;
+        });
+        setComponents(filteredComponents);
       } catch (error) {
         setError(error); // Set error state if fetching fails
         console.error('Error fetching components:', error);

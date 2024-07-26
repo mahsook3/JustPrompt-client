@@ -1,16 +1,29 @@
-//Questionnaire.js
+//Builder/Questionnaire.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Questionnaire = ({ onSubmit }) => {
   const [step, setStep] = useState(0); // Start with overview step
   const [companyName, setCompanyName] = useState("");
   const [goal, setGoal] = useState("");
-  const [numberOfEmployees, setNumberOfEmployees] = useState("");
+  const [color, setColor] = useState("#4ade80");
   const [workplaceUrl, setWorkplaceUrl] = useState("");
   const [keywords, setKeywords] = useState([]);
   const [selectedComponents, setSelectedComponents] = useState([]);
   const [logoUrl, setLogoUrl] = useState("");
+
+  const handleColorChange = (e) => {
+    setColor(e.target.value);
+  };
+  const handleHexChange = (e) => {
+    const hexValue = e.target.value;
+    // Basic validation for hex color codes
+    if (/^#([0-9A-F]{3}){1,2}$/i.test(hexValue)) {
+      setColor(hexValue);
+    }
+  };
 
   useEffect(() => {
     const savedData = localStorage.getItem("questionnaireData");
@@ -18,7 +31,7 @@ const Questionnaire = ({ onSubmit }) => {
       const data = JSON.parse(savedData);
       setCompanyName(data.companyName || "");
       setGoal(data.goal || "");
-      setNumberOfEmployees(data.numberOfEmployees || "");
+      setColor(data.color || "");
       setWorkplaceUrl(data.workplaceUrl || "");
       setKeywords(data.keywords || []);
       setSelectedComponents(data.selectedComponents || []);
@@ -32,7 +45,7 @@ const Questionnaire = ({ onSubmit }) => {
       JSON.stringify({
         companyName,
         goal,
-        numberOfEmployees,
+        color,
         workplaceUrl,
         keywords,
         selectedComponents,
@@ -42,7 +55,7 @@ const Questionnaire = ({ onSubmit }) => {
   }, [
     companyName,
     goal,
-    numberOfEmployees,
+    color,
     workplaceUrl,
     keywords,
     selectedComponents,
@@ -82,10 +95,40 @@ const Questionnaire = ({ onSubmit }) => {
   };
 
   const handleSubmit = () => {
+    // if (!companyName) {
+    //   toast.error("Please enter your company name");
+    //   return;
+    // }
+    // if (!goal) {
+    //   toast.error("Please enter your business goal");
+    //   return;
+    // }
+    // if (!color) {
+    //   toast.error("Please enter the number of employees");
+    //   return;
+    // }
+    // if (!workplaceUrl) {
+    //   toast.error("Please provide a workplace name");
+    //   return;
+    // }
+    // if (keywords.length === 0) {
+    //   toast.error("Please select at least one keyword");
+    //   return;
+    // }
+    // if (!logoUrl) {
+    //   toast.error("Please upload a logo");
+    //   return;
+    // }
+    // if (selectedComponents.length === 0) {
+    //   toast.error("Please select at least one component");
+    //   return;
+    // }
+
+  
     onSubmit({
       companyName,
       goal,
-      numberOfEmployees,
+      color,
       workplaceUrl,
       keywords,
       selectedComponents,
@@ -94,14 +137,25 @@ const Questionnaire = ({ onSubmit }) => {
   };
 
   const renderStep = () => {
+    
     switch (step) {
       case 1:
         return (
           <div>
-            <label className="block mb-2 text-gray-700">Company Name</label>
+            <div className="w-11/12 justify-center items-center flex-col mb-5 sm:mb-10">
+              <h1 className="text-4xl text-center text-gray-800 dark:text-white font-black leading-10">
+                Let's Start with your{" "}
+                <span className="text-green-400">company</span> name
+              </h1>
+              <p className="mt-5 text-gray-600 font-normal text-center text-xl">
+                Provide your company name to help AI understand your business.
+              </p>
+            </div>
+  
             <input
               type="text"
-              className="w-full px-4 py-2 border rounded-lg"
+              className="w-full px-4 py-3 border-b-2 border-gray-300 focus:border-green-400 text-lg outline-none"
+              placeholder="Your company name"
               value={companyName}
               onChange={(e) => setCompanyName(e.target.value)}
             />
@@ -110,10 +164,20 @@ const Questionnaire = ({ onSubmit }) => {
       case 2:
         return (
           <div>
-            <label className="block mb-2 text-gray-700">Goal</label>
+            <div className="w-11/12 justify-center items-center flex-col mb-5 sm:mb-10">
+              <h1 className="text-4xl text-center text-gray-800 dark:text-white font-black leading-10">
+                Tell us your business{" "}
+                <span className="text-green-400">goal?</span>
+              </h1>
+              <p className="mt-5 text-gray-600 font-normal text-center text-xl">
+                Describe your main business goal to help AI understand your needs.
+              </p>
+            </div>
+  
             <input
               type="text"
-              className="w-full px-4 py-2 border rounded-lg"
+              className="w-full px-4 py-3 border-b-2 border-gray-300 focus:border-green-400 text-lg outline-none"
+              placeholder="Your business goal"
               value={goal}
               onChange={(e) => setGoal(e.target.value)}
             />
@@ -121,55 +185,161 @@ const Questionnaire = ({ onSubmit }) => {
         );
       case 3:
         return (
-          <div>
-            <label className="block mb-2 text-gray-700">
-              Number of Employees
-            </label>
-            <input
-              type="number"
-              className="w-full px-4 py-2 border rounded-lg"
-              value={numberOfEmployees}
-              onChange={(e) => setNumberOfEmployees(e.target.value)}
-            />
-          </div>
+<div className="flex flex-col items-center justify-center w-11/12 mb-5 space-y-5 sm:mb-10">
+  <h1 className="text-4xl font-black leading-10 text-center text-gray-800 dark:text-white">
+    Pick your Brand
+    <span className="text-green-400"> Color</span>
+  </h1>
+  <p className="text-xl font-normal text-center text-gray-600">
+    Pick a color that best represents your business.
+  </p>
+  <div className="flex flex-col items-center justify-center space-y-4">
+      <input
+        type="color"
+        className="w-full h-10 border-none cursor-pointer focus:ring-2 focus:ring-green-400"
+        value={color}
+        onChange={handleColorChange}
+      />
+      <input
+        type="text"
+        className="w-full h-10 px-4 border border-gray-300 focus:ring-2 focus:ring-green-400"
+        value={color}
+        onChange={handleHexChange}
+        placeholder="#FFFFFF"
+      />
+    </div>
+</div>
         );
       case 4:
         return (
           <div>
-            <label className="block mb-2 text-gray-700">Workplace URL</label>
-            <input
-              type="text"
-              className="w-full px-4 py-2 border rounded-lg"
-              value={workplaceUrl}
-              onChange={(e) => setWorkplaceUrl(e.target.value)}
-            />
+            <div className="w-11/12 justify-center items-center flex-col mb-5 sm:mb-10">
+              <h1 className="text-4xl text-center text-gray-800 dark:text-white font-black leading-10">
+                Name your{" "}
+                <span className="text-green-400">workplace</span>
+              </h1>
+            </div>
+  
+            <div className="flex items-center justify-between">
+  <input
+    type="text"
+    className="w-3/4 px-4 py-3 border-b-2 border-gray-300 focus:border-green-400 text-lg outline-none"
+    placeholder="Workplace URL"
+    value={workplaceUrl}
+    onChange={(e) => setWorkplaceUrl(e.target.value)}
+  />
+  <p className=" text-gray-600 font-normal text-xl">
+    .justprompt.ai
+  </p>
+</div>
+<p className="text-gray-400 font-normal text-center text-base mt-5">
+  Your workplace URL will be used to access your website.
+</p>
           </div>
         );
       case 5:
         return (
           <div>
-            <label className="block mb-2 text-gray-700">Keywords</label>
+            <div className="w-11/12 justify-center items-center flex-col mb-5 sm:mb-10">
+              <h1 className="text-4xl text-center text-gray-800 dark:text-white font-black leading-10">
+                Select your{" "}
+                <span className="text-green-400">keywords</span>
+              </h1>
+              <p className="mt-5 text-gray-600 font-normal text-center text-xl">
+                Choose keywords that best describe your business.
+              </p>
+            </div>
+  
             <div className="flex flex-wrap gap-2 justify-center">
-  {['E-commerce Stores', 'Service-based Businesses', 'Blogs and Content Sites', 'Portfolio Websites', 'Events and Booking', 'Restaurant Websites', 'Personal Branding', 'Photography Portfolios', 'Fashion and Apparel Stores', 'Travel and Tourism Websites', 'Real Estate Listings', 'Educational Websites', 'Nonprofit and Charity Websites', 'Fitness and Wellness Sites', 'Consulting and Professional Services', 'Beauty and Spa Websites', 'Art and Craft Galleries', 'Musician or Band Websites', 'Automotive Sales and Services', 'Pet Services and Products', 'Health and Medical Clinics', 'Legal Services', 'Financial Services', 'Tech Startups and IT Services', 'Home and Garden Improvement', 'Wedding Planning Services', 'Online Courses and Learning Platforms', 'News and Magazine Websites', 'Gaming and Entertainment Blogs', 'Interior Design and Architecture', 'Food and Beverage Blogs', 'Environmental Causes and Green Businesses', 'Freelance and Creative Portfolios'].map((keyword) => (
-    <button
-      key={keyword}
-      className={`px-4 py-2 border rounded-lg ${
-        keywords.includes(keyword) ? "bg-blue-500 text-white" : "bg-gray-200"
-      }`}
-      onClick={() => handleKeywordClick(keyword)}
-    >
-      {keyword}
-    </button>
-  ))}
-</div>
+              {[
+                "E-commerce Stores",
+                "Service-based Businesses",
+                "Blogs and Content Sites",
+                "Portfolio Websites",
+                "Events and Booking",
+                "Restaurant Websites",
+                "Personal Branding",
+                "Photography Portfolios",
+                "Fashion and Apparel Stores",
+                "Travel and Tourism Websites",
+                "Real Estate Listings",
+                "Educational Websites",
+                "Nonprofit and Charity Websites",
+                "Fitness and Wellness Sites",
+                "Consulting and Professional Services",
+                "Beauty and Spa Websites",
+                "Art and Craft Galleries",
+                "Musician or Band Websites",
+                "Automotive Sales and Services",
+                "Pet Services and Products",
+                "Health and Medical Clinics",
+                "Legal Services",
+                "Financial Services",
+                "Tech Startups and IT Services",
+                "Home and Garden Improvement",
+                "Wedding Planning Services",
+                "Online Courses and Learning Platforms",
+                "News and Magazine Websites",
+                "Gaming and Entertainment Blogs",
+                "Interior Design and Architecture",
+                "Food and Beverage Blogs",
+                "Environmental Causes and Green Businesses",
+                "Freelance and Creative Portfolios",
+              ].map((keyword) => (
+                <button
+                  key={keyword}
+                  className={`px-4 py-2 border rounded-lg ${
+                    keywords.includes(keyword)
+                      ? "bg-gray-500 text-white"
+                      : "bg-gray-200"
+                  }`}
+                  onClick={() => handleKeywordClick(keyword)}
+                >
+                  {keyword}
+                </button>
+              ))}
+            </div>
           </div>
         );
       case 6:
         return (
           <div>
-            <label className="block mb-2 text-gray-700">Logo</label>
-            <input type="file" onChange={handleLogoUpload} />
-            {logoUrl && (
+            <div className="w-11/12 justify-center items-center flex-col mb-5 sm:mb-10">
+              <h1 className="text-4xl text-center text-gray-800 dark:text-white font-black leading-10">
+                Upload your{" "}
+                <span className="text-green-400">logo</span>
+              </h1>
+              <p className="mt-5 text-gray-600 font-normal text-center text-xl">
+                Provide a logo to help identify your business visually.
+              </p>
+            </div>
+  
+            <>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+  <div className=" bg-white px-2">
+    <div className="max-w-md mx-auto rounded-lg overflow-hidden md:max-w-xl">
+      <div className="md:flex">
+        <div className="w-full p-3">
+          <div className="relative border-dotted h-48 rounded-lg border-dashed border-2 border-green-400 bg-gray-100 flex justify-center items-center">
+            <div className="absolute">
+              <div className="flex flex-col items-center">
+                <i className="fa fa-folder-open fa-4x text-green-400" />
+                <span className="block text-gray-400 font-normal">
+                  Attach your logo here
+                </span>
+              </div>
+            </div>
+            <input type="file" className="h-full w-full opacity-0" name="" accept="image/jpeg,image/png,image/gif" onChange={handleLogoUpload}/>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</>            {logoUrl && (
               <img
                 src={logoUrl}
                 alt="Company Logo"
@@ -181,8 +351,17 @@ const Questionnaire = ({ onSubmit }) => {
       case 7:
         return (
           <div>
-            <label className="block mb-2 text-gray-700">Components</label>
-            <div className="flex flex-wrap gap-2">
+            <div className="w-11/12 justify-center items-center flex-col mb-5 sm:mb-10">
+              <h1 className="text-4xl text-center text-gray-800 dark:text-white font-black leading-10">
+                Select{" "}
+                <span className="text-green-400">components</span>
+              </h1>
+              <p className="mt-5 text-gray-600 font-normal text-center text-xl">
+                Choose the components you want to include in your website.
+              </p>
+            </div>
+  
+            <div className="flex flex-wrap gap-2 justify-center">
               {[
                 "Hero",
                 "Features",
@@ -219,7 +398,7 @@ const Questionnaire = ({ onSubmit }) => {
                   key={component}
                   className={`px-4 py-2 border rounded-lg ${
                     selectedComponents.includes(component)
-                      ? "bg-blue-500 text-white"
+                      ? "bg-gray-500 text-white"
                       : "bg-gray-200"
                   }`}
                   onClick={() => handleComponentClick(component)}
@@ -234,9 +413,11 @@ const Questionnaire = ({ onSubmit }) => {
         return null;
     }
   };
+  
 
   return (
     <div className="flex h-screen items-center justify-center">
+      <ToastContainer />
       <div className="flex flex-col items-center justify-center">
         {step === 0 ? (
           <section className="pt-20">
@@ -333,62 +514,68 @@ const Questionnaire = ({ onSubmit }) => {
             </div>
           </section>
         ) : (
-<div className="w-full p-6 bg-white dark:bg-gray-800 shadow-md rounded-lg">
-            <div className="p-4 space-y-2 mb-4">
-              <h3 className="text-base font-semibold">
-                Step {step}:{" "}
-                {
-                  [
-                    "Company Name",
-                    "Goal",
-                    "Number of Employees",
-                    "Workplace URL",
-                    "Keywords",
-                    "Logo",
-                    "Components",
-                  ][step - 1]
-                }
-              </h3>
-              <div className="flex max-w-xs space-x-3">
-                {[...Array(7)].map((_, i) => (
-                  <span
-                    key={i}
-                    className={`w-12 h-2 rounded-full ${
-                      i < step - 1
-                        ? "bg-violet-600"
-                        : i === step - 1
-                        ? "bg-gray-800 animate-pulse"
-                        : "bg-gray-400"
-                    }`}
-                  />
-                ))}
+          <div className="w-full p-6 bg-white">
+            <div className="fixed inset-x-0 top-0 pt-4">
+              <div className="p-4 space-y-2 mb-4">
+                <h3 className="text-base font-semibold">
+                  Step {step}:{" "}
+                  {
+                    [
+                      "Company Name",
+                      "Goal",
+                      "Number of Employees",
+                      "Workplace URL",
+                      "Keywords",
+                      "Logo",
+                      "Components",
+                    ][step - 1]
+                  }
+                </h3>
+                <div className="flex max-w-xs space-x-3">
+                  {[...Array(7)].map((_, i) => (
+                    <span
+                      key={i}
+                      className={`w-12 h-2 rounded-full ${
+                        i < step - 1
+                          ? "bg-green-400"
+                          : i === step - 1
+                          ? "bg-gray-800 animate-pulse"
+                          : "bg-gray-400"
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
             {renderStep()}
-            <div className="flex justify-between mt-6">
-              {step > 1 && (
-                <button
-                  className="px-4 py-2 bg-gray-300 text-black rounded-lg"
-                  onClick={() => setStep(step - 1)}
-                >
-                  Previous
-                </button>
-              )}
-              {step < 7 ? (
-                <button
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg"
-                  onClick={() => setStep(step + 1)}
-                >
-                  Next
-                </button>
-              ) : (
-                <button
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg"
-                  onClick={handleSubmit}
-                >
-                  Submit
-                </button>
-              )}
+            <div className="fixed inset-x-0 bottom-0 pb-4 pr-2 pl-2 bg-white">
+              <div className="flex justify-between mt-6 w-full">
+                {step > 1 && (
+                  <button
+                    className="px-4 py-2 bg-gray-300 text-black rounded-lg"
+                    onClick={() => setStep(step - 1)}
+                  >
+                    Previous
+                  </button>
+                )}
+                <div className="flex space-x-4 justify-end flex-1">
+                  {step < 7 ? (
+                    <button
+                      className="px-4 py-2 bg-green-400 text-white rounded-lg"
+                      onClick={() => setStep(step + 1)}
+                    >
+                      Next
+                    </button>
+                  ) : (
+                    <button
+                      className="px-4 py-2 bg-green-400 text-white rounded-lg"
+                      onClick={handleSubmit}
+                    >
+                      Submit
+                    </button>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         )}

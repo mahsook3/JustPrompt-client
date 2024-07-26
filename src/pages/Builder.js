@@ -1,4 +1,4 @@
-//Builder.js
+//pages/Builder.js
 import React, { useState } from 'react';
 import Questionnaire from '../Builder/Questionnaire';
 import SelectedComponents from '../Builder/SelectedComponents';

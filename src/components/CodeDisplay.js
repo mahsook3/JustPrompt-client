@@ -2,6 +2,7 @@
 import React from 'react';
 
 function CodeDisplay({ code }) {
+  console.log("From CodeDisplay.js", code);
   const openInNewTab = () => {
     const newWindow = window.open();
     newWindow.document.write(`

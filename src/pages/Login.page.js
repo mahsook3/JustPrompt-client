@@ -22,7 +22,7 @@ const Login = () => {
 
   const redirectNow = () => {
     const redirectTo = location.search.replace("?redirectTo=", "");
-    navigate(redirectTo ? redirectTo : "/home");
+    navigate(redirectTo ? redirectTo : "/builder");
   };
 
   const loadUser = async () => {
