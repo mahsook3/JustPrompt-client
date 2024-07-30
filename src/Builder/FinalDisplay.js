@@ -52,7 +52,7 @@ const FinalDisplay = ({ droppedComponents }) => {
           company: questionnaireData.companyName,
           goal: questionnaireData.goal,
           keywords: questionnaireData.keywords.join(', '),
-          color: questionnaireData.color
+          color: "questionnaireData.color"
         };
 
         // Post data to API
