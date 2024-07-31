@@ -12,12 +12,12 @@ export default function Features() {
                   WITH AI-POWERED SIMPLICITY
                 </h3>
                 <p className="text-gray-800 text-3xl font-semibold sm:text-4xl">
-                  Build your website within 3 steps
+                  Build your E-commerce within 3 steps
                 </p>
                 <p className="text-gray-600">
                   Transform your offline business into a thriving online
                   presence with JustPrompt, the intuitive no-code platform
-                  designed for entrepreneurs and small businesses.
+                  designed for small and medium scaled businesses.
                 </p>
               </div>
               <div className="mt-2 md:mt-0 py-12 pb-6 sm:py-16 lg:pb-24 overflow-hidden">
@@ -80,7 +80,7 @@ export default function Features() {
                           Make it live
                         </h3>
                         <p className="mt-3 sm:mt-4 text-base text-gray-600 dark:text-gray-400">
-                          Now your website is ready to go live. Publish it.
+                          Now your e-commerce is ready to go live. Publish it.
                         </p>
                       </div>
                     </div>

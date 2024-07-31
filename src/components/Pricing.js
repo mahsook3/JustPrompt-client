@@ -41,6 +41,12 @@ export default function Pricing() {
         <li className="flex text-lg mb-2">
           <img src="https://res.cloudinary.com/williamsondesign/check-grey.svg" />
           <span className="ml-3">
+            Show your <span className="text-black">product</span> in our marketplace
+          </span>
+        </li>
+        <li className="flex text-lg mb-2">
+          <img src="https://res.cloudinary.com/williamsondesign/check-grey.svg" />
+          <span className="ml-3">
             Pre-built <span className="text-black">templates</span>
           </span>
         </li>
@@ -83,6 +89,12 @@ export default function Pricing() {
           <img src="https://res.cloudinary.com/williamsondesign/check-white.svg" />
           <span className="ml-3">
             More <span className="text-white">customization options</span>
+          </span>
+        </li>
+        <li className="flex text-lg mb-2">
+          <img src="https://res.cloudinary.com/williamsondesign/check-grey.svg" />
+          <span className="ml-3">
+            Show your <span className="text-white">product</span> in our marketplace
           </span>
         </li>
         <li className="flex mb-6">
@@ -132,6 +144,12 @@ export default function Pricing() {
           <img src="https://res.cloudinary.com/williamsondesign/check-grey.svg" />
           <span className="ml-3">
             <span className="text-black">Analytics</span>{" "}tools
+          </span>
+        </li>
+        <li className="flex text-lg mb-2">
+          <img src="https://res.cloudinary.com/williamsondesign/check-grey.svg" />
+          <span className="ml-3">
+            Show your <span className="text-black">product</span> in our marketplace
           </span>
         </li>
         <li className="flex text-lg mb-2">

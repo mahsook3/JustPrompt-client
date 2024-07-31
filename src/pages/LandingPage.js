@@ -10,6 +10,7 @@ import Contact from '../components/Contact'
 import Footer from '../components/Footer'
 import Features from '../components/Features'
 
+
 export default function LandingPage() {
   return (
     <>

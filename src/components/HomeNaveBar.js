@@ -48,18 +48,18 @@ export default function Navbar() {
   const isHome = activeSection === '#home';
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 w-full z-50 shadow-md transition-colors duration-300 ${isHome ? 'bg-black/50 text-white' : 'bg-white text-gray-700'}`}>
+    <nav className="bg-white fixed top-0 left-0 right-0 w-full z-50 shadow-md transition-colors duration-300">
                   <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto py-2.5">
         <a href="#" className="flex items-center">
           <p className="text-2xl font-bold text-green-400">
             Just
-            <span className={isHome ? 'text-white' : 'text-gray-700'}>Prompt.ai</span>
+            <span className="text-gray-700">Prompt.ai</span>
           </p>
         </a>
         <div className="flex items-center lg:order-2">
           <a
             href="/login"
-            className={`bg-green-400 hover:bg-green-600 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 focus:outline-none ${isHome ? 'text-gray-700' : 'text-gray-700'}`}
+            className="bg-green-400 hover:bg-green-600 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 focus:outline-none text-gray-700"
           >
             Get Started
           </a>
@@ -107,7 +107,7 @@ export default function Navbar() {
                 <a
                   href={navItem.path}
                   onClick={(e) => handleScroll(e, navItem.path)}
-                  className={`block py-2 pl-3 pr-4 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-green-400 lg:p-0 ${isHome ? 'text-white' : 'text-gray-700'} ${
+                  className={`block py-2 pl-3 pr-4 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-green-400 lg:p-0 'text-gray-700 ${
                     activeSection === navItem.path ? 'font-bold text-green-400' : ''
                   }`}
                 >

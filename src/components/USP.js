@@ -1,65 +1,91 @@
 import React from 'react'
-import Dashboard from '../assets/Dashboard.png'
-
-// JSON data
-const content = {
-  shortHeading: "With AI Powered simplicity",
-  mainHeading: "Transform Offline Businesses into Online Success with JustPrompt",
-  shortParagraph: "Transform your offline business into a thriving online presence with JustPrompt, the intuitive no-code platform designed for entrepreneurs and small businesses.",
-  button: {
-    text: "Get Started",
-    link: "#_"
-  }
-};
+import usp from '../assets/stepper.svg'
+import Achievement from '../components/Achievement'
 
 export default function USP() {
+    const data = [
+      {
+        "text": "Create your own online page in minutes."
+      },
+      {
+        "text": "Show your products to the world."
+      },
+      {
+        "text": "Make your own E-commerce store."
+      },
+        {
+          "text": "Drag-and-drop interface for easy creation."
+        },
+        {
+          "text": "Pre-built templates tailored for various industries."
+        },
+        {
+          "text": "Real-time analytics and customer engagement tools."
+        },
+        {
+          "text": "24/7 customer support and community forum."
+        }
+      ];
   return (
-    <section className="pt-24 bg-white" id='about'>
-      <div className="px-12 mx-auto max-w-7xl">
-        <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
-          <p className="mb-4 text-sm font-semibold tracking-widest text-gray-500 uppercase">{content.shortHeading}</p>
-          <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-normal text-gray-900 md:text-6xl md:tracking-tight">
-            {content.mainHeading}
-          </h1>
-          <p className="px-0 mb-8 text-lg text-gray-600 md:text-xl lg:px-24">
-            {content.shortParagraph}
-          </p>
-          <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
-            <a
-              href={content.button.link}
-              className="inline-flex items-center justify-center w-full px-6 py-3 mb-2 text-lg text-white bg-green-400 rounded-2xl sm:w-auto sm:mb-0"
+    <>
+    <div id='about'>
+        <Achievement />
+
+    <div className="overflow-hidden bg-white py-24 sm:py-32" >
+    <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+        <div className="lg:pr-8 lg:pt-4">
+          <div className="lg:max-w-lg">
+            <h2 className="text-base font-semibold leading-7 text-green-500">
+              Your business, your way
+            </h2>
+            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            Why Choose JustPrompt?
+            </p>
+            <p className="mt-6 text-lg leading-8 text-gray-600">
+            JustPrompt empowers small and medium-sized offline businesses to establish a strong online presence without needing extensive technical knowledge or high expenses. Our platform offers:
+            </p>
+
+
+            <div>
+    <ul className="mt-8 space-y-3 font-medium">
+      {data.map((item, index) => (
+        <li className={`flex items-start ${index !== 0 ? 'mt-5' : ''} lg:col-span-1 lg:mt-0`} key={index}>
+          <div className="flex-shrink-0">
+            <svg
+              className="w-5 h-5 text-green-400"
+              fill="currentColor"
+              viewBox="0 0 20 20"
             >
-              {content.button.text}
-              <svg
-                className="w-4 h-4 ml-1"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </a>
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
+          <p className="ml-3 leading-5 text-gray-600">
+            {item.text}
+          </p>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+
           </div>
         </div>
-        <div className="w-full mx-auto mt-20 text-center md:w-10/12">
-          <div className="relative z-0 w-full mt-8">
-            <div className="relative overflow-hidden shadow-2xl">
-              <div className="flex items-center flex-none px-4 bg-green-400 rounded-b-none h-11 rounded-xl">
-                <div className="flex space-x-1.5">
-                  <div className="w-3 h-3 border-2 border-white rounded-full" />
-                  <div className="w-3 h-3 border-2 border-white rounded-full" />
-                  <div className="w-3 h-3 border-2 border-white rounded-full" />
-                </div>
-              </div>
-              <img src={Dashboard} alt="Dashboard" />
-            </div>
-          </div>
-        </div>
+        <img
+          src={usp}
+          alt="Product screenshot"
+          className="w-[48rem] max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem] md:-ml-4 lg:-ml-0"
+          width={2432}
+          height={1442}
+        />
       </div>
-    </section>
+    </div>
+  </div>
+  </div>
+  </>
   )
 }
