@@ -14,6 +14,7 @@ const FEATURES = [
 ];
 
 export default function Hero() {
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
@@ -46,6 +47,7 @@ export default function Hero() {
   
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  
 
   return (
     <section className="pt-24 bg-white" id="home">
