@@ -52,14 +52,14 @@ const DragAndDrop = ({ droppedComponents = [], setDroppedComponents }) => {
   };
 
   return (
-    <div
-      ref={drop}
-      className={`p-4 bg-white shadow rounded-lg mb-4 ${
-        isDragOver ? 'border-2 border-blue-500' : 'border-2 border-gray-300'
-      } min-h-[200px]`}
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-    >
+<div
+  ref={drop}
+  className={`p-4 bg-white shadow rounded-lg mb-4 ${
+    isDragOver ? 'border-2 border-green-500 border-dashed' : 'border-2 border-gray-300 border-dashed'
+  } min-h-[200px]`}
+  onDragOver={handleDragOver}
+  onDragLeave={handleDragLeave}
+>
       <h2 className="text-2xl font-bold mb-4">Drag and Drop</h2>
       {droppedComponents.map((component, index) => (
         <DraggableComponent

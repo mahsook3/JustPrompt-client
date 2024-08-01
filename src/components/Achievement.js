@@ -12,7 +12,7 @@ export default function Achievement() {
     Recognized as Top 10 startups across India
   </p>
   <p className="text-gray-600 text-base">
-    The Grand Challenge 2024
+    The MeitY Grand Challenge 2024
   </p>
 </div>
   )

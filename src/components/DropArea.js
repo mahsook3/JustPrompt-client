@@ -9,7 +9,7 @@ function DropArea({ droppedItems, onDrop, onElementClick, onDeleteElement }) {
   }));
 
   return (
-    <div ref={drop} className="w-1/5 h-full bg-white shadow-md rounded-lg p-4 overflow-y-auto">
+    <div ref={drop} className="w-1/5 h-full bg-white shadow-md rounded-lg p-4 overflow-y-auto border-dashed">
       <h2 className="text-xl font-semibold mb-4">Drop Area</h2>
       <ul>
         {droppedItems.map((item, index) => (

@@ -19,11 +19,11 @@ const SelectedComponents = ({ components, onComponentClick }) => {
         {components.map((component, idx) => (
           <Tabs.Trigger
             key={idx}
-            className="group outline-none px-1.5 border-l-2 border-white text-gray-500 data-[state=active]:border-indigo-600 data-[state=active]:text-indigo-600"
+            className="group outline-none px-1.5 border-l-2 border-white text-gray-500 data-[state=active]:border-green-600 data-[state=active]:text-green-600"
             value={component}
             onClick={() => onComponentClick(component)}
           >
-            <div className="py-1.5 px-3 rounded-lg duration-150 group-hover:text-indigo-600 group-hover:bg-gray-100 font-medium">
+            <div className="py-1.5 px-3 rounded-lg duration-150 group-hover:text-green-600 group-hover:bg-gray-100 font-medium">
               {component}
             </div>
           </Tabs.Trigger>
@@ -44,7 +44,7 @@ const SelectedComponents = ({ components, onComponentClick }) => {
         </svg>
         <select
           value={selectedTab}
-          className="py-2 px-3 w-full bg-transparent appearance-none outline-none border rounded-lg shadow-sm focus:border-indigo-600 text-sm"
+          className="py-2 px-3 w-full bg-transparent appearance-none outline-none border rounded-lg shadow-sm focus:border-green-600 text-sm"
           onChange={(e) => setSelectedTab(e.target.value)}
         >
           {components.map((component, idx) => (

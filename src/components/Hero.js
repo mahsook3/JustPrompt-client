@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import Dashboard from "../assets/Dashboard.png";
-import ECommerceIcon from '../assets/features/E-Commerce.svg';
-import OnlineStoresIcon from '../assets/features/OnlineStores.svg';
-import OnlineWebsitesIcon from '../assets/features/OnlineWebsites.svg';
-import UnifiedIcon from '../assets/features/Unified.svg';
+import ECommerceIcon from "../assets/features/E-Commerce.svg";
+import OnlineStoresIcon from "../assets/features/OnlineStores.svg";
+import OnlineWebsitesIcon from "../assets/features/OnlineWebsites.svg";
+import UnifiedIcon from "../assets/features/Unified.svg";
 
 const COLORS_TOP = ["#13FFAA", "#1E67C6", "#CE84CF", "#DD335C"];
 const FEATURES = [
@@ -13,31 +13,37 @@ const FEATURES = [
   { text: "Unified Experiences", image: UnifiedIcon },
 ];
 
-
 export default function Hero() {
-
-  
-
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const image = document.getElementById("dashboard-image");
-
-      // Define maximum and minimum scale values
-      const maxScale = 1.2; // Maximum scaling factor
-      const minScale = 1; // Minimum scaling factor
-      const maxOffset = 30; // Maximum vertical offset in pixels
-
-      // Calculate scale and offset
-      const scale = Math.min(maxScale, minScale + scrollPosition * 0.001); // Limit scaling
-      const offset = Math.min(maxOffset, scrollPosition * 0.5); // Limit offset
-
-      // Apply transformations
-      image.style.transform = `scale(${scale}) translateY(${offset}px)`;
+      const documentHeight = document.documentElement.scrollHeight;
+      const windowHeight = window.innerHeight;
+      const maxScroll = documentHeight - windowHeight;
+  
+      const maxScale = 1.2;
+      const minScale = 1;
+      const maxOffset = 30;
+  
+      // Calculate scale and offset for the beginning of the scroll
+      const scale = Math.min(maxScale, minScale + scrollPosition * 0.001);
+      const offset = Math.min(maxOffset, scrollPosition * 0.5);
+  
+      // Calculate scale and offset for the end of the scroll
+      const bottomScale = Math.min(maxScale, minScale + (maxScroll - scrollPosition) * 0.001);
+      const bottomOffset = Math.min(maxOffset, (maxScroll - scrollPosition) * 0.5);
+  
+      // Determine the final scale and offset based on the scroll position
+      const finalScale = scrollPosition < maxScroll / 2 ? scale : bottomScale;
+      const finalOffset = scrollPosition < maxScroll / 2 ? offset : bottomOffset;
+  
+      // Apply the transformation
+      image.style.transform = `scale(${finalScale}) translateY(${finalOffset}px)`;
     };
-
+  
     window.addEventListener("scroll", handleScroll);
-
+  
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -61,24 +67,24 @@ export default function Hero() {
             entrepreneurs and small businesses.
           </p>
           <div className="mb-4 space-x-0 md:space-x-2 md:mb-8">
-          <a
-  href="#_"
-  className="inline-flex items-center justify-center w-full px-6 py-3 mb-2 text-lg text-white bg-green-400 rounded-2xl sm:w-auto sm:mb-0 hover:bg-green-500"
->
-  Get Started
-  <svg
-    className="w-4 h-4 ml-1"
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 20 20"
-    fill="currentColor"
-  >
-    <path
-      fillRule="evenodd"
-      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-      clipRule="evenodd"
-    />
-  </svg>
-</a>
+            <a
+              href="#_"
+              className="inline-flex items-center justify-center w-full px-6 py-3 mb-2 text-lg text-white bg-green-400 rounded-2xl sm:w-auto sm:mb-0 hover:bg-green-500"
+            >
+              Get Started
+              <svg
+                className="w-4 h-4 ml-1"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </a>
             <a
               href="#_"
               className="inline-flex items-center justify-center w-full px-6 py-3 mb-2 text-lg bg-gray-100 rounded-2xl sm:w-auto sm:mb-0 hover:bg-gray-300"
