@@ -1,8 +1,7 @@
-//Builder/Questionnaire.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Questionnaire = ({ onSubmit }) => {
   const [step, setStep] = useState(0); // Start with overview step
@@ -19,7 +18,6 @@ const Questionnaire = ({ onSubmit }) => {
   };
   const handleHexChange = (e) => {
     const hexValue = e.target.value;
-    // Basic validation for hex color codes
     if (/^#([0-9A-F]{3}){1,2}$/i.test(hexValue)) {
       setColor(hexValue);
     }
@@ -95,36 +93,35 @@ const Questionnaire = ({ onSubmit }) => {
   };
 
   const handleSubmit = () => {
-    // if (!companyName) {
-    //   toast.error("Please enter your company name");
-    //   return;
-    // }
-    // if (!goal) {
-    //   toast.error("Please enter your business goal");
-    //   return;
-    // }
-    // if (!color) {
-    //   toast.error("Please enter the number of employees");
-    //   return;
-    // }
-    // if (!workplaceUrl) {
-    //   toast.error("Please provide a workplace name");
-    //   return;
-    // }
-    // if (keywords.length === 0) {
-    //   toast.error("Please select at least one keyword");
-    //   return;
-    // }
-    // if (!logoUrl) {
-    //   toast.error("Please upload a logo");
-    //   return;
-    // }
-    // if (selectedComponents.length === 0) {
-    //   toast.error("Please select at least one component");
-    //   return;
-    // }
+    if (!companyName) {
+      toast.error("Please enter your company name");
+      return;
+    }
+    if (!goal) {
+      toast.error("Please enter your business goal");
+      return;
+    }
+    if (!color) {
+      toast.error("Please enter the number of employees");
+      return;
+    }
+    if (!workplaceUrl) {
+      toast.error("Please provide a workplace name");
+      return;
+    }
+    if (keywords.length === 0) {
+      toast.error("Please select at least one keyword");
+      return;
+    }
+    if (!logoUrl) {
+      toast.error("Please upload a logo");
+      return;
+    }
+    if (selectedComponents.length === 0) {
+      toast.error("Please select at least one component");
+      return;
+    }
 
-  
     onSubmit({
       companyName,
       goal,
@@ -137,7 +134,6 @@ const Questionnaire = ({ onSubmit }) => {
   };
 
   const renderStep = () => {
-    
     switch (step) {
       case 1:
         return (
@@ -151,7 +147,7 @@ const Questionnaire = ({ onSubmit }) => {
                 Provide your company name to help AI understand your business.
               </p>
             </div>
-  
+
             <input
               type="text"
               className="w-full px-4 py-3 border-b-2 border-gray-300 focus:border-green-400 text-lg outline-none"
@@ -170,10 +166,11 @@ const Questionnaire = ({ onSubmit }) => {
                 <span className="text-green-400">goal?</span>
               </h1>
               <p className="mt-5 text-gray-600 font-normal text-center text-xl">
-                Describe your main business goal to help AI understand your needs.
+                Describe your main business goal to help AI understand your
+                needs.
               </p>
             </div>
-  
+
             <input
               type="text"
               className="w-full px-4 py-3 border-b-2 border-gray-300 focus:border-green-400 text-lg outline-none"
@@ -185,56 +182,55 @@ const Questionnaire = ({ onSubmit }) => {
         );
       case 3:
         return (
-<div className="flex flex-col items-center justify-center w-11/12 mb-5 space-y-5 sm:mb-10">
-  <h1 className="text-4xl font-black leading-10 text-center text-gray-800 dark:text-white">
-    Pick your Brand
-    <span className="text-green-400"> Color</span>
-  </h1>
-  <p className="text-xl font-normal text-center text-gray-600">
-    Pick a color that best represents your business.
-  </p>
-  <div className="flex flex-col items-center justify-center space-y-4">
-      <input
-        type="color"
-        className="w-full h-10 border-none cursor-pointer focus:ring-2 focus:ring-green-400"
-        value={color}
-        onChange={handleColorChange}
-      />
-      <input
-        type="text"
-        className="w-full h-10 px-4 border border-gray-300 focus:ring-2 focus:ring-green-400"
-        value={color}
-        onChange={handleHexChange}
-        placeholder="#FFFFFF"
-      />
-    </div>
-</div>
+          <div className="flex flex-col items-center justify-center w-11/12 mb-5 space-y-5 sm:mb-10">
+            <h1 className="text-4xl font-black leading-10 text-center text-gray-800 dark:text-white">
+              Pick your Brand
+              <span className="text-green-400"> Color</span>
+            </h1>
+            <p className="text-xl font-normal text-center text-gray-600">
+              Pick a color that best represents your business.
+            </p>
+            <div className="flex flex-col items-center justify-center space-y-4">
+              <input
+                type="color"
+                className="w-full h-10 border-none cursor-pointer focus:ring-2 focus:ring-green-400"
+                value={color}
+                onChange={handleColorChange}
+              />
+              <input
+                type="text"
+                className="w-full h-10 px-4 border border-gray-300 focus:ring-2 focus:ring-green-400"
+                value={color}
+                onChange={handleHexChange}
+                placeholder="#FFFFFF"
+              />
+            </div>
+          </div>
         );
       case 4:
         return (
           <div>
             <div className="w-11/12 justify-center items-center flex-col mb-5 sm:mb-10">
               <h1 className="text-4xl text-center text-gray-800 dark:text-white font-black leading-10">
-                Name your{" "}
-                <span className="text-green-400">workplace</span>
+                Name your <span className="text-green-400">workplace</span>
               </h1>
             </div>
-  
+
             <div className="flex items-center justify-between">
-  <input
-    type="text"
-    className="w-3/4 px-4 py-3 border-b-2 border-gray-300 focus:border-green-400 text-lg outline-none"
-    placeholder="Workplace URL"
-    value={workplaceUrl}
-    onChange={(e) => setWorkplaceUrl(e.target.value)}
-  />
-  <p className=" text-gray-600 font-normal text-xl">
-    .justprompt.ai
-  </p>
-</div>
-<p className="text-gray-400 font-normal text-center text-base mt-5">
-  Your workplace URL will be used to access your website.
-</p>
+              <input
+                type="text"
+                className="w-3/4 px-4 py-3 border-b-2 border-gray-300 focus:border-green-400 text-lg outline-none"
+                placeholder="Workplace URL"
+                value={workplaceUrl}
+                onChange={(e) => setWorkplaceUrl(e.target.value)}
+              />
+              <p className=" text-gray-600 font-normal text-xl">
+                .justprompt.ai
+              </p>
+            </div>
+            <p className="text-gray-400 font-normal text-center text-base mt-5">
+              Your workplace URL will be used to access your website.
+            </p>
           </div>
         );
       case 5:
@@ -242,14 +238,13 @@ const Questionnaire = ({ onSubmit }) => {
           <div>
             <div className="w-11/12 justify-center items-center flex-col mb-5 sm:mb-10">
               <h1 className="text-4xl text-center text-gray-800 dark:text-white font-black leading-10">
-                Select your{" "}
-                <span className="text-green-400">keywords</span>
+                Select your <span className="text-green-400">keywords</span>
               </h1>
               <p className="mt-5 text-gray-600 font-normal text-center text-xl">
                 Choose keywords that best describe your business.
               </p>
             </div>
-  
+
             <div className="flex flex-wrap gap-2 justify-center">
               {[
                 "E-commerce Stores",
@@ -306,40 +301,44 @@ const Questionnaire = ({ onSubmit }) => {
           <div>
             <div className="w-11/12 justify-center items-center flex-col mb-5 sm:mb-10">
               <h1 className="text-4xl text-center text-gray-800 dark:text-white font-black leading-10">
-                Upload your{" "}
-                <span className="text-green-400">logo</span>
+                Upload your <span className="text-green-400">logo</span>
               </h1>
               <p className="mt-5 text-gray-600 font-normal text-center text-xl">
                 Provide a logo to help identify your business visually.
               </p>
             </div>
-  
             <>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-  />
-  <div className=" bg-white px-2">
-    <div className="max-w-md mx-auto rounded-lg overflow-hidden md:max-w-xl">
-      <div className="md:flex">
-        <div className="w-full p-3">
-          <div className="relative border-dotted h-48 rounded-lg border-dashed border-2 border-green-400 bg-gray-100 flex justify-center items-center">
-            <div className="absolute">
-              <div className="flex flex-col items-center">
-                <i className="fa fa-folder-open fa-4x text-green-400" />
-                <span className="block text-gray-400 font-normal">
-                  Attach your logo here
-                </span>
+              <link
+                rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+              />
+              <div className=" bg-white px-2">
+                <div className="max-w-md mx-auto rounded-lg overflow-hidden md:max-w-xl">
+                  <div className="md:flex">
+                    <div className="w-full p-3">
+                      <div className="relative border-dotted h-48 rounded-lg border-dashed border-2 border-green-400 bg-gray-100 flex justify-center items-center">
+                        <div className="absolute">
+                          <div className="flex flex-col items-center">
+                            <i className="fa fa-folder-open fa-4x text-green-400" />
+                            <span className="block text-gray-400 font-normal">
+                              Attach your logo here
+                            </span>
+                          </div>
+                        </div>
+                        <input
+                          type="file"
+                          className="h-full w-full opacity-0"
+                          name=""
+                          accept="image/jpeg,image/png,image/gif"
+                          onChange={handleLogoUpload}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <input type="file" className="h-full w-full opacity-0" name="" accept="image/jpeg,image/png,image/gif" onChange={handleLogoUpload}/>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</>            {logoUrl && (
+            </>{" "}
+            {logoUrl && (
               <img
                 src={logoUrl}
                 alt="Company Logo"
@@ -353,14 +352,13 @@ const Questionnaire = ({ onSubmit }) => {
           <div>
             <div className="w-11/12 justify-center items-center flex-col mb-5 sm:mb-10">
               <h1 className="text-4xl text-center text-gray-800 dark:text-white font-black leading-10">
-                Select{" "}
-                <span className="text-green-400">components</span>
+                Select <span className="text-green-400">components</span>
               </h1>
               <p className="mt-5 text-gray-600 font-normal text-center text-xl">
                 Choose the components you want to include in your website.
               </p>
             </div>
-  
+
             <div className="flex flex-wrap gap-2 justify-center">
               {[
                 "Hero",
@@ -413,7 +411,6 @@ const Questionnaire = ({ onSubmit }) => {
         return null;
     }
   };
-  
 
   return (
     <div className="flex h-screen items-center justify-center">

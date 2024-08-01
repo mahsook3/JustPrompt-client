@@ -1,27 +1,34 @@
-//InputForm.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 function extractValuesFromHTML(html) {
-  const tempDiv = document.createElement('div');
+  const tempDiv = document.createElement("div");
   tempDiv.innerHTML = html;
 
   const inputs = {};
-  const images = Array.from(tempDiv.querySelectorAll('img'));
-  const links = Array.from(tempDiv.querySelectorAll('a'));
-  const buttons = Array.from(tempDiv.querySelectorAll('button'));
-  const texts = Array.from(tempDiv.querySelectorAll('p, h1, h2, h3, h4, h5, h6'));
+  const images = Array.from(tempDiv.querySelectorAll("img"));
+  const links = Array.from(tempDiv.querySelectorAll("a"));
+  const buttons = Array.from(tempDiv.querySelectorAll("button"));
+  const texts = Array.from(
+    tempDiv.querySelectorAll("p, h1, h2, h3, h4, h5, h6")
+  );
 
   images.forEach((img, index) => (inputs[`img${index + 1}`] = img.src));
   links.forEach((link, index) => (inputs[`link${index + 1}`] = link.href));
-  buttons.forEach((button, index) => (inputs[`button${index + 1}`] = button.innerText));
-  texts.forEach((text, index) => (inputs[`text${index + 1}`] = text.innerText || text.textContent));
+  buttons.forEach(
+    (button, index) => (inputs[`button${index + 1}`] = button.innerText)
+  );
+  texts.forEach(
+    (text, index) =>
+      (inputs[`text${index + 1}`] = text.innerText || text.textContent)
+  );
 
   return inputs;
 }
 
 function InputForm({ element, onUpdateElement }) {
   const [formData, setFormData] = useState({});
-  const questionnaireData = JSON.parse(localStorage.getItem('questionnaireData')) || {};
+  const questionnaireData =
+    JSON.parse(localStorage.getItem("questionnaireData")) || {};
 
   useEffect(() => {
     if (element) {
@@ -38,25 +45,26 @@ function InputForm({ element, onUpdateElement }) {
   };
 
   const handleUpdate = () => {
-    const tempDiv = document.createElement('div');
+    const tempDiv = document.createElement("div");
     tempDiv.innerHTML = element.code;
 
     Object.keys(formData).forEach((key) => {
       const value = formData[key];
       const type = key.slice(0, key.length - 1);
       switch (type) {
-        case 'img':
-          tempDiv.querySelectorAll('img')[key.slice(-1) - 1].src = value;
+        case "img":
+          tempDiv.querySelectorAll("img")[key.slice(-1) - 1].src = value;
           break;
-        case 'link':
-          tempDiv.querySelectorAll('a')[key.slice(-1) - 1].href = value;
+        case "link":
+          tempDiv.querySelectorAll("a")[key.slice(-1) - 1].href = value;
           break;
-        case 'button':
-          tempDiv.querySelectorAll('button')[key.slice(-1) - 1].innerText = value;
+        case "button":
+          tempDiv.querySelectorAll("button")[key.slice(-1) - 1].innerText =
+            value;
           break;
-        case 'text':
+        case "text":
           const index = key.slice(-1) - 1;
-          const texts = tempDiv.querySelectorAll('p, h1, h2, h3, h4, h5, h6');
+          const texts = tempDiv.querySelectorAll("p, h1, h2, h3, h4, h5, h6");
           if (texts[index]) {
             texts[index].innerText = value;
           }
@@ -86,13 +94,16 @@ function InputForm({ element, onUpdateElement }) {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/personalised_content", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      });
+      const response = await fetch(
+        "http://localhost:5000/personalised_content",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
+        }
+      );
 
       if (!response.ok) {
         const errorMessage = await response.text();
@@ -117,7 +128,8 @@ function InputForm({ element, onUpdateElement }) {
     }
   };
 
-  if (!element) return <div className="text-center">Select an element to edit</div>;
+  if (!element)
+    return <div className="text-center">Select an element to edit</div>;
 
   return (
     <div className="overflow-y-auto h-full space-y-4">

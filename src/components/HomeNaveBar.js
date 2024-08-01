@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('#home'); // Initialize activeSection with '#home'
+  const [activeSection, setActiveSection] = useState("#home"); // Initialize activeSection with '#home'
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -21,14 +21,16 @@ export default function Navbar() {
     e.preventDefault();
     const section = document.querySelector(path);
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+      section.scrollIntoView({ behavior: "smooth" });
       setIsMenuOpen(false); // Close the menu after clicking
     }
   };
 
   useEffect(() => {
     const handleScrollEvent = () => {
-      const sections = navigation.map(navItem => document.querySelector(navItem.path));
+      const sections = navigation.map((navItem) =>
+        document.querySelector(navItem.path)
+      );
       const scrollPosition = window.scrollY + window.innerHeight / 2;
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -39,17 +41,17 @@ export default function Navbar() {
       }
     };
 
-    window.addEventListener('scroll', handleScrollEvent);
+    window.addEventListener("scroll", handleScrollEvent);
     return () => {
-      window.removeEventListener('scroll', handleScrollEvent);
+      window.removeEventListener("scroll", handleScrollEvent);
     };
   }, []);
 
-  const isHome = activeSection === '#home';
+  const isHome = activeSection === "#home";
 
   return (
     <nav className="bg-white fixed top-0 left-0 right-0 w-full z-50 shadow-md transition-colors duration-300">
-                  <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto py-2.5">
+      <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto py-2.5">
         <a href="#" className="flex items-center">
           <p className="text-2xl font-bold text-green-400">
             Just
@@ -72,7 +74,7 @@ export default function Navbar() {
           >
             <span className="sr-only">Open main menu</span>
             <svg
-              className={`w-6 h-6 ${isMenuOpen ? 'hidden' : 'block'}`}
+              className={`w-6 h-6 ${isMenuOpen ? "hidden" : "block"}`}
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
@@ -84,7 +86,7 @@ export default function Navbar() {
               />
             </svg>
             <svg
-              className={`w-6 h-6 ${isMenuOpen ? 'block' : 'hidden'}`}
+              className={`w-6 h-6 ${isMenuOpen ? "block" : "hidden"}`}
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +100,9 @@ export default function Navbar() {
           </button>
         </div>
         <div
-          className={`items-center justify-between w-full lg:flex lg:w-auto lg:order-1 ${isMenuOpen ? 'block' : 'hidden'}`}
+          className={`items-center justify-between w-full lg:flex lg:w-auto lg:order-1 ${
+            isMenuOpen ? "block" : "hidden"
+          }`}
           id="mobile-menu"
         >
           <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
@@ -108,7 +112,9 @@ export default function Navbar() {
                   href={navItem.path}
                   onClick={(e) => handleScroll(e, navItem.path)}
                   className={`block py-2 pl-3 pr-4 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-green-400 lg:p-0 'text-gray-700 ${
-                    activeSection === navItem.path ? 'font-bold text-green-400' : ''
+                    activeSection === navItem.path
+                      ? "font-bold text-green-400"
+                      : ""
                   }`}
                 >
                   {navItem.title}

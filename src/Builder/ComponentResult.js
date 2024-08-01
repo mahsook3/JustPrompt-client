@@ -1,17 +1,17 @@
-//Builder/ComponentResult.js
-import React, { useEffect, useState } from 'react';
-import { useDrag } from 'react-dnd';
-import componentsData from '../components.json';
+import React, { useEffect, useState } from "react";
+import { useDrag } from "react-dnd";
+import componentsData from "../components.json";
 
 const ComponentResult = ({ query, setDroppedComponents }) => {
   const [components, setComponents] = useState([]);
-  const [error, setError] = useState(null); // State for error handling
-
+  const [error, setError] = useState(null); 
   useEffect(() => {
     const fetchComponents = () => {
       try {
         const filteredComponents = componentsData.filter((component) => {
-          const titleMatch = component.title.toLowerCase().includes(query.toLowerCase());
+          const titleMatch = component.title
+            .toLowerCase()
+            .includes(query.toLowerCase());
           const tagMatch = component.tags.some((tag) =>
             tag.name.toLowerCase().includes(query.toLowerCase())
           );
@@ -19,8 +19,8 @@ const ComponentResult = ({ query, setDroppedComponents }) => {
         });
         setComponents(filteredComponents);
       } catch (error) {
-        setError(error); // Set error state if fetching fails
-        console.error('Error fetching components:', error);
+        setError(error);
+        console.error("Error fetching components:", error);
       }
     };
 
@@ -29,7 +29,6 @@ const ComponentResult = ({ query, setDroppedComponents }) => {
     }
   }, [query]);
 
-  // Render error message if fetching components fails
   if (error) {
     return <div>Error fetching components: {error.message}</div>;
   }
@@ -40,7 +39,7 @@ const ComponentResult = ({ query, setDroppedComponents }) => {
       <div className="space-y-4">
         {components.map((component) => (
           <DraggableComponentCard
-            key={component.uuid} // Ensure uuid is unique for each component
+            key={component.uuid} 
             component={component}
             setDroppedComponents={setDroppedComponents}
           />
@@ -52,7 +51,7 @@ const ComponentResult = ({ query, setDroppedComponents }) => {
 
 const DraggableComponentCard = ({ component, setDroppedComponents }) => {
   const [{ isDragging }, drag] = useDrag({
-    type: 'COMPONENT',
+    type: "COMPONENT",
     item: { component: JSON.stringify(component) },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -63,7 +62,7 @@ const DraggableComponentCard = ({ component, setDroppedComponents }) => {
     <div
       ref={drag}
       className={`p-4 bg-white shadow rounded-lg flex items-center space-x-4 ${
-        isDragging ? 'opacity-50' : 'opacity-100'
+        isDragging ? "opacity-50" : "opacity-100"
       }`}
     >
       <img

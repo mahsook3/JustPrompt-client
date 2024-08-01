@@ -14,7 +14,6 @@ const FEATURES = [
 ];
 
 export default function Hero() {
-
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
@@ -22,32 +21,34 @@ export default function Hero() {
       const documentHeight = document.documentElement.scrollHeight;
       const windowHeight = window.innerHeight;
       const maxScroll = documentHeight - windowHeight;
-  
+
       const maxScale = 1.2;
       const minScale = 1;
       const maxOffset = 30;
-  
-      // Calculate scale and offset for the beginning of the scroll
+
       const scale = Math.min(maxScale, minScale + scrollPosition * 0.001);
       const offset = Math.min(maxOffset, scrollPosition * 0.5);
-  
-      // Calculate scale and offset for the end of the scroll
-      const bottomScale = Math.min(maxScale, minScale + (maxScroll - scrollPosition) * 0.001);
-      const bottomOffset = Math.min(maxOffset, (maxScroll - scrollPosition) * 0.5);
-  
-      // Determine the final scale and offset based on the scroll position
+
+      const bottomScale = Math.min(
+        maxScale,
+        minScale + (maxScroll - scrollPosition) * 0.001
+      );
+      const bottomOffset = Math.min(
+        maxOffset,
+        (maxScroll - scrollPosition) * 0.5
+      );
+
       const finalScale = scrollPosition < maxScroll / 2 ? scale : bottomScale;
-      const finalOffset = scrollPosition < maxScroll / 2 ? offset : bottomOffset;
-  
-      // Apply the transformation
+      const finalOffset =
+        scrollPosition < maxScroll / 2 ? offset : bottomOffset;
+
       image.style.transform = `scale(${finalScale}) translateY(${finalOffset}px)`;
     };
-  
+
     window.addEventListener("scroll", handleScroll);
-  
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  
 
   return (
     <section className="pt-24 bg-white" id="home">

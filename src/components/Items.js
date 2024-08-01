@@ -1,16 +1,19 @@
-//Items.js
-import React from 'react';
-import { useDrag } from 'react-dnd';
+import React from "react";
+import { useDrag } from "react-dnd";
 
 function Item({ item }) {
   const [, drag] = useDrag(() => ({
-    type: 'ITEM',
+    type: "ITEM",
     item,
   }));
 
   return (
     <li ref={drag} className="mb-4 flex flex-col items-center">
-      <img src={item.thumbnailurl} alt={item.templateName} className="w-20 h-20 object-cover mb-2 rounded" />
+      <img
+        src={item.thumbnailurl}
+        alt={item.templateName}
+        className="w-20 h-20 object-cover mb-2 rounded"
+      />
       <button className="text-blue-500 hover:underline">
         {item.templateName}
       </button>

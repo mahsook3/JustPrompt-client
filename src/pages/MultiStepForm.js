@@ -74,8 +74,8 @@ const HomePage = () => {
       },
     },
     websitedetails: {
-      uniqueID: ""
-    }
+      uniqueID: "",
+    },
   });
 
   const handleInputChange = (section, field, value, index) => {
@@ -246,7 +246,7 @@ const HomePage = () => {
         },
       },
     };
-  
+
     try {
       const response = await fetch("http://localhost:5050/api/justprompt", {
         method: "POST",
@@ -255,7 +255,7 @@ const HomePage = () => {
         },
         body: JSON.stringify(postData),
       });
-  
+
       if (response.ok) {
         const result = await response.json();
         console.log(result);
@@ -269,7 +269,6 @@ const HomePage = () => {
       alert("An error occurred while submitting the form. Please try again.");
     }
   };
-  
 
   const sections = [
     {
@@ -337,7 +336,11 @@ const HomePage = () => {
       title: "Header",
       content: (
         <>
-          {templateSelectionImages("header", ["template1", "template2", "template3"])}
+          {templateSelectionImages("header", [
+            "template1",
+            "template2",
+            "template3",
+          ])}
           <label className="block mb-2">Company Name</label>
           <input
             type="text"
@@ -365,7 +368,12 @@ const HomePage = () => {
                 className="mb-1 p-2 w-full border rounded"
                 value={item.label || ""}
                 onChange={(e) =>
-                  handleInputChange("header", "menuItems", { label: e.target.value }, index)
+                  handleInputChange(
+                    "header",
+                    "menuItems",
+                    { label: e.target.value },
+                    index
+                  )
                 }
               />
               <input
@@ -374,7 +382,12 @@ const HomePage = () => {
                 className="p-2 w-full border rounded"
                 value={item.link || ""}
                 onChange={(e) =>
-                  handleInputChange("header", "menuItems", { link: e.target.value }, index)
+                  handleInputChange(
+                    "header",
+                    "menuItems",
+                    { link: e.target.value },
+                    index
+                  )
                 }
               />
             </div>
@@ -393,7 +406,9 @@ const HomePage = () => {
             className="mb-2 p-2 w-full border rounded"
             value={formData.header.actionButton.label}
             onChange={(e) =>
-              handleInputChange("header", "actionButton", { label: e.target.value })
+              handleInputChange("header", "actionButton", {
+                label: e.target.value,
+              })
             }
           />
           <input
@@ -402,7 +417,9 @@ const HomePage = () => {
             className="p-2 w-full border rounded"
             value={formData.header.actionButton.link}
             onChange={(e) =>
-              handleInputChange("header", "actionButton", { link: e.target.value })
+              handleInputChange("header", "actionButton", {
+                link: e.target.value,
+              })
             }
           />
         </>
@@ -412,32 +429,30 @@ const HomePage = () => {
       title: "Hero",
       content: (
         <>
-          {templateSelectionImages("hero", ["template1", "template2", "template3"])}
+          {templateSelectionImages("hero", [
+            "template1",
+            "template2",
+            "template3",
+          ])}
           <label className="block mb-2">Topic</label>
           <input
             type="text"
             className="mb-4 p-2 w-full border rounded"
             value={formData.hero.topic}
-            onChange={(e) =>
-              handleInputChange("hero", "topic", e.target.value)
-            }
+            onChange={(e) => handleInputChange("hero", "topic", e.target.value)}
           />
           <label className="block mb-2">Title</label>
           <input
             type="text"
             className="mb-4 p-2 w-full border rounded"
             value={formData.hero.title}
-            onChange={(e) =>
-              handleInputChange("hero", "title", e.target.value)
-            }
+            onChange={(e) => handleInputChange("hero", "title", e.target.value)}
           />
           <label className="block mb-2">Paragraph</label>
           <textarea
             className="mb-4 p-2 w-full border rounded"
             value={formData.hero.para}
-            onChange={(e) =>
-              handleInputChange("hero", "para", e.target.value)
-            }
+            onChange={(e) => handleInputChange("hero", "para", e.target.value)}
           ></textarea>
           <label className="block mb-2">Buttons</label>
           {formData.hero.buttons.map((button, index) => (
@@ -448,7 +463,12 @@ const HomePage = () => {
                 className="mb-1 p-2 w-full border rounded"
                 value={button.label || ""}
                 onChange={(e) =>
-                  handleInputChange("hero", "buttons", { label: e.target.value }, index)
+                  handleInputChange(
+                    "hero",
+                    "buttons",
+                    { label: e.target.value },
+                    index
+                  )
                 }
               />
               <input
@@ -457,7 +477,12 @@ const HomePage = () => {
                 className="p-2 w-full border rounded"
                 value={button.link || ""}
                 onChange={(e) =>
-                  handleInputChange("hero", "buttons", { link: e.target.value }, index)
+                  handleInputChange(
+                    "hero",
+                    "buttons",
+                    { link: e.target.value },
+                    index
+                  )
                 }
               />
             </div>
@@ -485,7 +510,11 @@ const HomePage = () => {
       title: "Features",
       content: (
         <>
-          {templateSelectionImages("features", ["template1", "template2", "template3"])}
+          {templateSelectionImages("features", [
+            "template1",
+            "template2",
+            "template3",
+          ])}
           <label className="block mb-2">Title</label>
           <input
             type="text"
@@ -512,7 +541,12 @@ const HomePage = () => {
                 className="mb-1 p-2 w-full border rounded"
                 value={item.title || ""}
                 onChange={(e) =>
-                  handleInputChange("features", "items", { title: e.target.value }, index)
+                  handleInputChange(
+                    "features",
+                    "items",
+                    { title: e.target.value },
+                    index
+                  )
                 }
               />
               <input
@@ -521,7 +555,12 @@ const HomePage = () => {
                 className="p-2 w-full border rounded"
                 value={item.description || ""}
                 onChange={(e) =>
-                  handleInputChange("features", "items", { description: e.target.value }, index)
+                  handleInputChange(
+                    "features",
+                    "items",
+                    { description: e.target.value },
+                    index
+                  )
                 }
               />
             </div>
@@ -540,7 +579,11 @@ const HomePage = () => {
       title: "Products",
       content: (
         <>
-          {templateSelectionImages("products", ["template1", "template2", "template3"])}
+          {templateSelectionImages("products", [
+            "template1",
+            "template2",
+            "template3",
+          ])}
           <label className="block mb-2">Products List</label>
           {formData.products.list.map((product, index) => (
             <div key={index} className="mb-2">
@@ -550,7 +593,12 @@ const HomePage = () => {
                 className="mb-1 p-2 w-full border rounded"
                 value={product.name || ""}
                 onChange={(e) =>
-                  handleInputChange("products", "list", { name: e.target.value }, index)
+                  handleInputChange(
+                    "products",
+                    "list",
+                    { name: e.target.value },
+                    index
+                  )
                 }
               />
               <input
@@ -559,7 +607,12 @@ const HomePage = () => {
                 className="mb-1 p-2 w-full border rounded"
                 value={product.description || ""}
                 onChange={(e) =>
-                  handleInputChange("products", "list", { description: e.target.value }, index)
+                  handleInputChange(
+                    "products",
+                    "list",
+                    { description: e.target.value },
+                    index
+                  )
                 }
               />
               <input
@@ -568,7 +621,12 @@ const HomePage = () => {
                 className="p-2 w-full border rounded"
                 value={product.imageUrl || ""}
                 onChange={(e) =>
-                  handleInputChange("products", "list", { imageUrl: e.target.value }, index)
+                  handleInputChange(
+                    "products",
+                    "list",
+                    { imageUrl: e.target.value },
+                    index
+                  )
                 }
               />
             </div>
@@ -587,7 +645,11 @@ const HomePage = () => {
       title: "About",
       content: (
         <>
-          {templateSelectionImages("about", ["template1", "template2", "template3"])}
+          {templateSelectionImages("about", [
+            "template1",
+            "template2",
+            "template3",
+          ])}
           <label className="block mb-2">Title</label>
           <input
             type="text"
@@ -621,7 +683,11 @@ const HomePage = () => {
       title: "Testimonials",
       content: (
         <>
-          {templateSelectionImages("testimonials", ["template1", "template2", "template3"])}
+          {templateSelectionImages("testimonials", [
+            "template1",
+            "template2",
+            "template3",
+          ])}
           <label className="block mb-2">Title</label>
           <input
             type="text"
@@ -640,7 +706,12 @@ const HomePage = () => {
                 className="mb-1 p-2 w-full border rounded"
                 value={item.name || ""}
                 onChange={(e) =>
-                  handleInputChange("testimonials", "items", { name: e.target.value }, index)
+                  handleInputChange(
+                    "testimonials",
+                    "items",
+                    { name: e.target.value },
+                    index
+                  )
                 }
               />
               <input
@@ -649,7 +720,12 @@ const HomePage = () => {
                 className="mb-1 p-2 w-full border rounded"
                 value={item.review || ""}
                 onChange={(e) =>
-                  handleInputChange("testimonials", "items", { review: e.target.value }, index)
+                  handleInputChange(
+                    "testimonials",
+                    "items",
+                    { review: e.target.value },
+                    index
+                  )
                 }
               />
               <input
@@ -658,7 +734,12 @@ const HomePage = () => {
                 className="p-2 w-full border rounded"
                 value={item.imageUrl || ""}
                 onChange={(e) =>
-                  handleInputChange("testimonials", "items", { imageUrl: e.target.value }, index)
+                  handleInputChange(
+                    "testimonials",
+                    "items",
+                    { imageUrl: e.target.value },
+                    index
+                  )
                 }
               />
             </div>
@@ -677,7 +758,11 @@ const HomePage = () => {
       title: "Contact",
       content: (
         <>
-          {templateSelectionImages("contact", ["template1", "template2", "template3"])}
+          {templateSelectionImages("contact", [
+            "template1",
+            "template2",
+            "template3",
+          ])}
           <label className="block mb-2">Address</label>
           <input
             type="text"
@@ -717,8 +802,9 @@ const HomePage = () => {
           {steps.map((step, index) => (
             <li
               key={index}
-              className={`cursor-pointer p-2 ${currentStep === index ? "border-b-2 border-blue-500" : ""
-                }`}
+              className={`cursor-pointer p-2 ${
+                currentStep === index ? "border-b-2 border-blue-500" : ""
+              }`}
               onClick={() => setCurrentStep(index)}
             >
               {step.title}

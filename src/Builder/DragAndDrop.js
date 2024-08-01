@@ -1,6 +1,5 @@
-//Builder/DragAndDrop.js
-import React, { useState } from 'react';
-import { useDrag, useDrop } from 'react-dnd';
+import React, { useState } from "react";
+import { useDrag, useDrop } from "react-dnd";
 
 const DragAndDrop = ({ droppedComponents = [], setDroppedComponents }) => {
   const [isDragOver, setIsDragOver] = useState(false);
@@ -11,7 +10,10 @@ const DragAndDrop = ({ droppedComponents = [], setDroppedComponents }) => {
       try {
         const component = JSON.parse(itemData.component);
         if (component && component.title) {
-          setDroppedComponents((prevComponents) => [...prevComponents, component]);
+          setDroppedComponents((prevComponents) => [
+            ...prevComponents,
+            component,
+          ]);
         }
       } catch (error) {
         console.error("Error parsing component data:", error);
@@ -36,7 +38,7 @@ const DragAndDrop = ({ droppedComponents = [], setDroppedComponents }) => {
   };
 
   const [, drop] = useDrop({
-    accept: 'COMPONENT',
+    accept: "COMPONENT",
     drop: handleDrop,
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
@@ -52,14 +54,16 @@ const DragAndDrop = ({ droppedComponents = [], setDroppedComponents }) => {
   };
 
   return (
-<div
-  ref={drop}
-  className={`p-4 bg-white shadow rounded-lg mb-4 ${
-    isDragOver ? 'border-2 border-green-500 border-dashed' : 'border-2 border-gray-300 border-dashed'
-  } min-h-[200px]`}
-  onDragOver={handleDragOver}
-  onDragLeave={handleDragLeave}
->
+    <div
+      ref={drop}
+      className={`p-4 bg-white shadow rounded-lg mb-4 ${
+        isDragOver
+          ? "border-2 border-green-500 border-dashed"
+          : "border-2 border-gray-300 border-dashed"
+      } min-h-[200px]`}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+    >
       <h2 className="text-2xl font-bold mb-4">Drag and Drop</h2>
       {droppedComponents.map((component, index) => (
         <DraggableComponent
@@ -76,12 +80,12 @@ const DragAndDrop = ({ droppedComponents = [], setDroppedComponents }) => {
 
 const DraggableComponent = ({ component, index, handleDelete, moveCard }) => {
   const [, drag, preview] = useDrag({
-    type: 'COMPONENT',
+    type: "COMPONENT",
     item: { index },
   });
 
   const [, drop] = useDrop({
-    accept: 'COMPONENT',
+    accept: "COMPONENT",
     hover: (item) => {
       if (item.index !== index) {
         moveCard(item.index, index);
@@ -90,9 +94,8 @@ const DraggableComponent = ({ component, index, handleDelete, moveCard }) => {
     },
   });
 
-  // Check if component is defined before rendering
   if (!component || !component.title) {
-    return null; // or handle the case where component is undefined or has no title
+    return null;
   }
 
   return (

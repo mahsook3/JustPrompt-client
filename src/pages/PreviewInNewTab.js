@@ -1,12 +1,11 @@
-// src/pages/PreviewInNewTab.js
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 const PreviewInNewTab = () => {
-  const [finalCode, setFinalCode] = useState('');
-  const [finalCss, setFinalCss] = useState('');
+  const [finalCode, setFinalCode] = useState("");
+  const [finalCss, setFinalCss] = useState("");
 
   useEffect(() => {
-    const previewData = JSON.parse(localStorage.getItem('previewData'));
+    const previewData = JSON.parse(localStorage.getItem("previewData"));
     if (previewData) {
       setFinalCode(previewData.finalCode);
       setFinalCss(previewData.finalCss);
