@@ -93,34 +93,34 @@ const Questionnaire = ({ onSubmit }) => {
   };
 
   const handleSubmit = () => {
-    if (!companyName) {
-      toast.error("Please enter your company name");
-      return;
-    }
-    if (!goal) {
-      toast.error("Please enter your business goal");
-      return;
-    }
-    if (!color) {
-      toast.error("Please enter the number of employees");
-      return;
-    }
-    if (!workplaceUrl) {
-      toast.error("Please provide a workplace name");
-      return;
-    }
-    if (keywords.length === 0) {
-      toast.error("Please select at least one keyword");
-      return;
-    }
-    if (!logoUrl) {
-      toast.error("Please upload a logo");
-      return;
-    }
-    if (selectedComponents.length === 0) {
-      toast.error("Please select at least one component");
-      return;
-    }
+    // if (!companyName) {
+    //   toast.error("Please enter your company name");
+    //   return;
+    // }
+    // if (!goal) {
+    //   toast.error("Please enter your business goal");
+    //   return;
+    // }
+    // if (!color) {
+    //   toast.error("Please enter the number of employees");
+    //   return;
+    // }
+    // if (!workplaceUrl) {
+    //   toast.error("Please provide a workplace name");
+    //   return;
+    // }
+    // if (keywords.length === 0) {
+    //   toast.error("Please select at least one keyword");
+    //   return;
+    // }
+    // if (!logoUrl) {
+    //   toast.error("Please upload a logo");
+    //   return;
+    // }
+    // if (selectedComponents.length === 0) {
+    //   toast.error("Please select at least one component");
+    //   return;
+    // }
 
     onSubmit({
       companyName,
