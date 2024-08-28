@@ -3,7 +3,7 @@ import Logo from "../assets/itic.svg";
 
 export default function Achievement() {
   return (
-    <div className="flex flex-col items-center text-center p-6 bg-white shadow-lg">
+    <div className="flex flex-col items-center text-center p-6 bg-white shadow-lg" id="achievement" >
       <h3 className="text-green-500 font-semibold text-3xl mb-4">
         Recognized by the best
       </h3>
