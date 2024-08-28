@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/user.context";
 import { ToastContainer, toast } from 'react-toastify';
@@ -11,10 +11,34 @@ export default function Header() {
     const { logOutUser } = useContext(UserContext);
     const navigate = useNavigate();
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const dropdownRef = useRef(null);
+    const buttonRef = useRef(null);
 
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
     };
+
+    const handleClickOutside = (event) => {
+        if (
+            dropdownRef.current &&
+            !dropdownRef.current.contains(event.target) &&
+            !buttonRef.current.contains(event.target)
+        ) {
+            setDropdownOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        if (dropdownOpen) {
+            document.addEventListener("mousedown", handleClickOutside);
+        } else {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [dropdownOpen]);
 
     useEffect(() => {
         if (user && user.profile) {
@@ -48,19 +72,23 @@ export default function Header() {
                     <button
                         type="button"
                         onClick={toggleDropdown}
+                        ref={buttonRef}
                         className="flex items-center bg-gray-200 hover:bg-gray-300 p-2 rounded-full focus:outline-none"
                     >
                         <img src={Avataricon} alt="Avatar" className="h-8 w-8" />
                     </button>
                     {dropdownOpen && (
-                        <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                        <div
+                            ref={dropdownRef}
+                            className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+                        >
                             <div className="py-1">
                                 <button
                                     onClick={logOut}
                                     className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full"
                                 >
                                     <img src={logouticon} alt="Logout" className="h-5 w-5 mr-2" />
-                                    Confirm Logout
+                                    Logout
                                 </button>
                             </div>
                         </div>
