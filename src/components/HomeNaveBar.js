@@ -52,7 +52,7 @@ export default function Navbar() {
   return (
     <nav className="bg-white fixed top-0 left-0 right-0 w-full z-50 shadow-md transition-colors duration-300">
       <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto py-2.5">
-        <a href="#" className="flex items-center">
+        <a href="/" className="flex items-center">
           <p className="text-2xl font-bold text-green-400">
             Just
             <span className="text-gray-700">Prompt.ai</span>

@@ -4,7 +4,8 @@ import SelectedComponents from "../Builder/SelectedComponents";
 import ComponentResult from "../Builder/ComponentResult";
 import DragAndDrop from "../Builder/DragAndDrop";
 import FinalDisplay from "../Builder/FinalDisplay";
-const App = () => {
+import Header from "../Builder/Header";
+const Builder = () => {
   const [questionnaireData, setQuestionnaireData] = useState(null);
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [droppedComponents, setDroppedComponents] = useState([]);
@@ -18,6 +19,8 @@ const App = () => {
   };
 
   return (
+    <>
+    <Header/>
     <div className="container mx-auto p-4 h-screen">
       {!questionnaireData ? (
         <Questionnaire onSubmit={handleQuestionnaireSubmit} />
@@ -50,7 +53,8 @@ const App = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 
-export default App;
+export default Builder;
