@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import codebase from "../codebase.json";
 import Loading from "../components/Loading";
+import parse from "html-react-parser";
 
 const FinalDisplay = ({ droppedComponents }) => {
   console.log("From FinalDisplay.js", droppedComponents);
@@ -123,7 +124,8 @@ const FinalDisplay = ({ droppedComponents }) => {
         <p className="text-red-500">{error}</p>
       ) : (
         <div className="text-white p-4 rounded-lg">
-          <div dangerouslySetInnerHTML={{ __html: finalCode }} />
+          {/* Dynamically render finalCode as JSX */}
+          {parse(finalCode)}
         </div>
       )}
     </div>

@@ -11,6 +11,7 @@ import Preview from "./pages/Preview";
 import PreviewInNewTab from "./pages/PreviewInNewTab"; 
 import Builder from "./pages/Builder";
 import CompanyHtmlContent from "./pages/CompanyHtmlContent";
+import PublishedPage from "./pages/PublishedPage";
 import "./tailwind.css";
 
 function App() {
@@ -24,14 +25,15 @@ function App() {
           <Route path="/test" element={<Test />} />
           <Route path="/builder" element={<Builder />} />
           <Route path="/preview" element={<Preview />} />
+          <Route path="/published/:id" element={<PublishedPage />} />
           <Route
             path="/preview-in-new-tab"
             element={<PreviewInNewTab />}
-          />{" "}
+          />
           <Route
             path="/d/:workplaceUrl"
             element={<CompanyHtmlContent />}
-          />{" "}
+          />
           <Route element={<PrivateRoute />}>
           </Route>
           <Route path="*" element={<Error />} />
