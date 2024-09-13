@@ -3,7 +3,8 @@ import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/user.context";
 import Logo from '../assets/logo.png'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -32,11 +33,18 @@ const Signup = () => {
         redirectNow();
       }
     } catch (error) {
-      alert(error);
+      if (error.message.includes("name already in use")) {
+        toast.error("Email already in use, please login");
+      } else {
+        alert(error);
+      }
     }
   };
 
   return (
+    <>
+            <ToastContainer />
+
 <div className="w-screen min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-800 px-4 sm:px-6 lg:px-8">
   <div className="relative py-3 sm:max-w-xs sm:mx-auto">
     <div className="min-h-96 px-8 py-6 mt-4 text-left bg-white dark:bg-gray-900 rounded-xl shadow-lg">
@@ -100,7 +108,7 @@ const Signup = () => {
     </div>
   </div>
 </div>
-
+</>
   );
 };
 
