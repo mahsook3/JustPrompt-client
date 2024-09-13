@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
-import Dashboard from "../assets/Dashboard.png";
+import Banner from "../assets/banner1.svg";
 import ECommerceIcon from "../assets/features/E-Commerce.svg";
 import OnlineStoresIcon from "../assets/features/OnlineStores.svg";
 import OnlineWebsitesIcon from "../assets/features/OnlineWebsites.svg";
 import UnifiedIcon from "../assets/features/Unified.svg";
+import Grid from "../assets/grid.svg";
+
 
 const COLORS_TOP = ["#13FFAA", "#1E67C6", "#CE84CF", "#DD335C"];
 const FEATURES = [
@@ -121,16 +123,9 @@ export default function Hero() {
           id="dashboard-image"
         >
           <div className="relative z-0 w-full mt-8">
-            <div className="relative overflow-hidden shadow-2xl">
-              <div className="flex items-center flex-none px-4 bg-green-400 rounded-b-none h-11 rounded-xl">
-                <div className="flex space-x-1.5">
-                  <div className="w-3 h-3 border-2 border-white rounded-full" />
-                  <div className="w-3 h-3 border-2 border-white rounded-full" />
-                  <div className="w-3 h-3 border-2 border-white rounded-full" />
-                </div>
-              </div>
+            <div className="relative overflow-hidden">
               <img
-                src={Dashboard}
+                src={Banner}
                 alt="Dashboard"
                 className="transition-transform duration-300 ease-in-out"
               />
