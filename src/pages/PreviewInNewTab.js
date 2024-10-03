@@ -45,7 +45,7 @@ const PreviewInNewTab = () => {
         const response = await axios.post('https://free-ap-south-1.cosmocloud.io/development/api/justpromptclientmodel', data, { headers });
         console.log('Response:', response.data);
         const publishedId = response.data.id;
-        const publishedUrl = `https://justprompt.vercel.app/published/${publishedId}`;
+        const publishedUrl = `https://justprompt-public.vercel.app/?id=${publishedId}`;
         setPublishedUrl(publishedUrl);
 
         // Ensure document is focused before writing to clipboard

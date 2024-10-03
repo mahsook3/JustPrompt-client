@@ -18,7 +18,7 @@ function PublishedPage() {
   }, [id]);
 
   return (
-    <div>
+    <div className="dark">
       <div dangerouslySetInnerHTML={{ __html: htmlCode }} />
     </div>
   );
