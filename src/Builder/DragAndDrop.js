@@ -45,14 +45,6 @@ const DragAndDrop = ({ droppedComponents = [], setDroppedComponents }) => {
     }),
   });
 
-  const moveCard = (dragIndex, hoverIndex) => {
-    const draggedComponent = droppedComponents[dragIndex];
-    const newComponents = [...droppedComponents];
-    newComponents.splice(dragIndex, 1);
-    newComponents.splice(hoverIndex, 0, draggedComponent);
-    setDroppedComponents(newComponents);
-  };
-
   return (
     <div
       ref={drop}
@@ -71,27 +63,16 @@ const DragAndDrop = ({ droppedComponents = [], setDroppedComponents }) => {
           index={index}
           component={component}
           handleDelete={handleDelete}
-          moveCard={moveCard}
         />
       ))}
     </div>
   );
 };
 
-const DraggableComponent = ({ component, index, handleDelete, moveCard }) => {
-  const [, drag, preview] = useDrag({
+const DraggableComponent = ({ component, index, handleDelete }) => {
+  const [, drag] = useDrag({
     type: "COMPONENT",
     item: { index },
-  });
-
-  const [, drop] = useDrop({
-    accept: "COMPONENT",
-    hover: (item) => {
-      if (item.index !== index) {
-        moveCard(item.index, index);
-        item.index = index;
-      }
-    },
   });
 
   if (!component || !component.title) {
@@ -100,12 +81,10 @@ const DraggableComponent = ({ component, index, handleDelete, moveCard }) => {
 
   return (
     <div
-      ref={(node) => preview(drop(node))}
+      ref={drag}
       className="p-2 mb-2 bg-gray-50 border rounded-lg flex justify-between items-center h-full"
     >
-      <div ref={drag} className="cursor-move">
-        <span>{component.title}</span>
-      </div>
+      <span>{component.title}</span>
       <button
         className="px-2 py-1 bg-red-500 text-white rounded"
         onClick={() => handleDelete(index)}
