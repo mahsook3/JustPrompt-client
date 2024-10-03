@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { UserProvider } from "./contexts/user.context";
 import Login from "./pages/Login.page";
@@ -15,6 +15,14 @@ import PublishedPage from "./pages/PublishedPage";
 import "./tailwind.css";
 
 function App() {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch('https://codemodifier.onrender.com/generate')
+      .then(response => response.json())
+      .then(data => setData(data))
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
   return (
     <BrowserRouter>
       <UserProvider>
