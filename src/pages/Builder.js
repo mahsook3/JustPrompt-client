@@ -5,6 +5,8 @@ import ComponentResult from "../Builder/ComponentResult";
 import DragAndDrop from "../Builder/DragAndDrop";
 import FinalDisplay from "../Builder/FinalDisplay";
 import Header from "../Builder/Header";
+import Test from "../Builder/Test";
+
 const Builder = () => {
   const [questionnaireData, setQuestionnaireData] = useState(null);
   const [selectedComponent, setSelectedComponent] = useState(null);
@@ -48,7 +50,7 @@ const Builder = () => {
             />
           </div>
           <div className="col-span-5 p-2 overflow-y-auto">
-            <FinalDisplay droppedComponents={droppedComponents} />
+            <Test droppedComponents={droppedComponents} />
           </div>
         </div>
       )}
