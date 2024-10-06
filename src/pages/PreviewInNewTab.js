@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import parse from "html-react-parser";
+import React, { useEffect, useState, useRef } from "react";
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,6 +7,7 @@ const PreviewInNewTab = () => {
   const [finalCode, setFinalCode] = useState("");
   const [finalCss, setFinalCss] = useState("");
   const [publishedUrl, setPublishedUrl] = useState("");
+  const iframeRef = useRef(null);
 
   useEffect(() => {
     const previewData = JSON.parse(localStorage.getItem("previewData"));
@@ -17,6 +17,29 @@ const PreviewInNewTab = () => {
       setFinalCss(previewData.finalCss);
     }
   }, []);
+
+  useEffect(() => {
+    if (iframeRef.current && finalCode) {
+      const doc = iframeRef.current.contentDocument;
+      doc.open();
+      doc.write(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Published Page</title>
+          <script src="https://cdn.tailwindcss.com"></script>
+          <style>${finalCss}</style>
+        </head>
+        <body>
+          <div id="htmlContent">${finalCode}</div>
+        </body>
+        </html>
+      `);
+      doc.close();
+    }
+  }, [finalCode, finalCss]);
 
   const handleMakeItPublic = async () => {
     const questionnaireData = JSON.parse(localStorage.getItem("questionnaireData"));
@@ -72,7 +95,13 @@ const PreviewInNewTab = () => {
   return (
     <>
       <button onClick={handleMakeItPublic}>Make it Public</button>
-      {parse(finalCode)}
+      <div className="text-white p-4 rounded-lg">
+        <iframe
+          ref={iframeRef}
+          style={{ width: "100%", height: "500vh", border: "none" }}
+          title="Preview"
+        />
+      </div>
       {publishedUrl && <p>Published URL: <a href={publishedUrl} target="_blank" rel="noopener noreferrer">{publishedUrl}</a></p>}
       <ToastContainer />
     </>

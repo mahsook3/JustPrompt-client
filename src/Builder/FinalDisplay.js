@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import codebase from "../codebase.json";
 import Loading from "../components/Loading";
-import parse from "html-react-parser";
 
 const FinalDisplay = ({ droppedComponents }) => {
   console.log("From FinalDisplay.js", droppedComponents);
@@ -10,6 +9,7 @@ const FinalDisplay = ({ droppedComponents }) => {
   const [finalConfig, setFinalConfig] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const iframeRef = useRef(null);
 
   const fetchComponentCode = useCallback((uuid) => {
     try {
@@ -89,6 +89,29 @@ const FinalDisplay = ({ droppedComponents }) => {
     fetchAllCodes();
   }, [droppedComponents, fetchComponentCode]);
 
+  useEffect(() => {
+    if (iframeRef.current && finalCode) {
+      const doc = iframeRef.current.contentDocument;
+      doc.open();
+      doc.write(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Published Page</title>
+          <script src="https://cdn.tailwindcss.com"></script>
+          <script src="https://kit.fontawesome.com/f8e8c480d8.js" crossorigin="anonymous"></script>
+        </head>
+        <body>
+          <div id="htmlContent">${finalCode}</div>
+        </body>
+        </html>
+      `);
+      doc.close();
+    }
+  }, [finalCode]);
+
   const openInNewTab = () => {
     localStorage.setItem(
       "previewData",
@@ -123,10 +146,13 @@ const FinalDisplay = ({ droppedComponents }) => {
       ) : error ? (
         <p className="text-red-500">{error}</p>
       ) : (
-        <div className="text-white p-4 rounded-lg">
-          {/* Dynamically render finalCode as JSX */}
-          {parse(finalCode)}
-        </div>
+<div className="text-white p-4 rounded-lg">
+  <iframe
+    ref={iframeRef}
+    style={{ width: "100%", height: "100vh", border: "none" }}
+    title="Preview"
+  />
+</div>
       )}
     </div>
   );

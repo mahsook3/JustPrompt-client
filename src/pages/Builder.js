@@ -50,7 +50,7 @@ const Builder = () => {
             />
           </div>
           <div className="col-span-5 p-2 overflow-y-auto">
-            <Test droppedComponents={droppedComponents} />
+            <FinalDisplay droppedComponents={droppedComponents} />
           </div>
         </div>
       )}
