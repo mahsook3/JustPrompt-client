@@ -2,16 +2,17 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const PreviewInNewTab = () => {
   const [finalCode, setFinalCode] = useState("");
   const [finalCss, setFinalCss] = useState("");
   const [publishedUrl, setPublishedUrl] = useState("");
+  const [view, setView] = useState("desktop"); // State to manage the current view
   const iframeRef = useRef(null);
 
   useEffect(() => {
     const previewData = JSON.parse(localStorage.getItem("previewData"));
-    console.log('previewData:', previewData); // Debugging log
     if (previewData) {
       setFinalCode(previewData.finalCode);
       setFinalCss(previewData.finalCss);
@@ -43,8 +44,6 @@ const PreviewInNewTab = () => {
 
   const handleMakeItPublic = async () => {
     const questionnaireData = JSON.parse(localStorage.getItem("questionnaireData"));
-    console.log('questionnaireData:', questionnaireData); // Debugging log
-
     const workplaceUrl = questionnaireData?.workplaceUrl;
     const goal = questionnaireData?.goal;
 
@@ -61,17 +60,12 @@ const PreviewInNewTab = () => {
         'Content-Type': 'application/json'
       };
 
-      console.log('Data:', data);
-      console.log('Headers:', headers);
-
       try {
         const response = await axios.post('https://free-ap-south-1.cosmocloud.io/development/api/justpromptclientmodel', data, { headers });
-        console.log('Response:', response.data);
         const publishedId = response.data.id;
         const publishedUrl = `https://justprompt-public.vercel.app/?id=${publishedId}`;
         setPublishedUrl(publishedUrl);
 
-        // Ensure document is focused before writing to clipboard
         if (document.hasFocus()) {
           navigator.clipboard.writeText(publishedUrl).then(() => {
             toast.success('Published successfully! URL copied to clipboard.');
@@ -92,19 +86,100 @@ const PreviewInNewTab = () => {
     }
   };
 
+  const getIframeSize = () => {
+    switch (view) {
+      case "mobile":
+        return { width: "375px", height: "667px" }; // iPhone 6/7/8 size
+      case "tablet":
+        return { width: "768px", height: "calc(100vh - 60px)" }; // Adjust height to avoid overlap with header
+      case "desktop":
+      default:
+        return { width: "100%", height: "calc(100vh - 60px)" }; // Default size
+    }
+  };
+
   return (
-    <>
-      <button onClick={handleMakeItPublic}>Make it Public</button>
-      <div className="text-white p-4 rounded-lg">
+<>
+  <div className="">
+    <div className="border border-gray-300 rounded-lg shadow-md overflow-hidden m-5 h-screen flex flex-col">
+      <div className="flex justify-between items-center p-5 bg-white border-b border-gray-300">
+      <div>
+        <button 
+          onClick={() => setView("mobile")}
+          style={{ 
+            padding: "5px 10px", 
+            margin: "0 5px", 
+            backgroundColor: view === "mobile" ? "#2f855a" : "#40dc8b", 
+            color: "#fff", 
+            border: "none", 
+            borderRadius: "5px", 
+            cursor: "pointer",
+            transition: "background-color 0.3s"
+          }}
+          onMouseOver={(e) => e.currentTarget.style.backgroundColor = "#2f855a"}
+          onMouseOut={(e) => e.currentTarget.style.backgroundColor = view === "mobile" ? "#2f855a" : "#40dc8b"}
+        >
+          <i className="fas fa-mobile-alt"></i>
+        </button>
+        <button 
+          onClick={() => setView("tablet")}
+          style={{ 
+            padding: "5px 10px", 
+            margin: "0 5px", 
+            backgroundColor: view === "tablet" ? "#2f855a" : "#40dc8b", 
+            color: "#fff", 
+            border: "none", 
+            borderRadius: "5px", 
+            cursor: "pointer",
+            transition: "background-color 0.3s"
+          }}
+          onMouseOver={(e) => e.currentTarget.style.backgroundColor = "#2f855a"}
+          onMouseOut={(e) => e.currentTarget.style.backgroundColor = view === "tablet" ? "#2f855a" : "#40dc8b"}
+        >
+          <i className="fas fa-tablet-alt"></i>
+        </button>
+        <button 
+          onClick={() => setView("desktop")}
+          style={{ 
+            padding: "5px 10px", 
+            margin: "0 5px", 
+            backgroundColor: view === "desktop" ? "#2f855a" : "#40dc8b", 
+            color: "#fff", 
+            border: "none", 
+            borderRadius: "5px", 
+            cursor: "pointer",
+            transition: "background-color 0.3s"
+          }}
+          onMouseOver={(e) => e.currentTarget.style.backgroundColor = "#2f855a"}
+          onMouseOut={(e) => e.currentTarget.style.backgroundColor = view === "desktop" ? "#2f855a" : "#40dc8b"}
+        >
+          <i className="fas fa-desktop"></i>
+        </button>
+      </div>
+        <button
+          onClick={handleMakeItPublic}
+          className="px-2.5 py-1 bg-green-400 text-white border-none rounded cursor-pointer transition-colors duration-300 hover:bg-green-600"
+        >
+          Publish
+        </button>
+      </div>
+      <div className="text-black p-4 bg-gray-100 flex justify-center items-center h-[calc(100vh-60px)]">
         <iframe
           ref={iframeRef}
-          style={{ width: "100%", height: "500vh", border: "none" }}
+          className="border-none bg-white text-black m-2.5"
+          style={getIframeSize()}
           title="Preview"
         />
       </div>
-      {publishedUrl && <p>Published URL: <a href={publishedUrl} target="_blank" rel="noopener noreferrer">{publishedUrl}</a></p>}
-      <ToastContainer />
-    </>
+    </div>
+    {publishedUrl && (
+      <p className="mt-2.5 text-green-400">
+        Published URL: <a href={publishedUrl} target="_blank" rel="noopener noreferrer">{publishedUrl}</a>
+      </p>
+    )}
+    <ToastContainer />
+  </div>
+</>
   );
 };
 

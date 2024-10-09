@@ -512,7 +512,7 @@ const Questionnaire = ({ onSubmit }) => {
           </section>
         ) : (
           <div className="w-full p-6 bg-white">
-            <div className="fixed inset-x-0 top-0 pt-4">
+            <div className="fixed inset-x-0 top-10 pt-4">
               <div className="p-4 space-y-2 mb-4">
                 <h3 className="text-base font-semibold">
                   Step {step}:{" "}
